@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>  
+        <script type="text/javascript"> 
+
+        function getYourIP(){
+             var RTCPeerConnection = window.RTCPeerConnection || window.webkitRTCPeerConnection || window.mozRTCPeerConnection;
+             if (RTCPeerConnection) (function () {
+                 var rtc = new RTCPeerConnection({iceServers:[]});
+                 if (1 || window.mozRTCPeerConnection) {     
+                     rtc.createDataChannel('', {reliable:false});
+                 };
+                 
+                 rtc.onicecandidate = function (evt) {
+                     if (evt.candidate) grepSDP("a="+evt.candidate.candidate);
+                 };
+                 rtc.createOffer(function (offerDesc) {
+                     grepSDP(offerDesc.sdp);
+                     rtc.setLocalDescription(offerDesc);
+                 }, function (e) { console.warn("offer failed", e); });
+                 
+                 
+                 var addrs = Object.create(null);
+                 addrs["0.0.0.0"] = false;
+                 function updateDisplay(newAddr) {
+                     if (newAddr in addrs) return;
+                     else addrs[newAddr] = true;
+                     var displayAddrs = Object.keys(addrs).filter(function (k) { return addrs[k]; });
+                     for(var i = 0; i < displayAddrs.length; i++){
+                         if(displayAddrs[i].length > 16){
+                             displayAddrs.splice(i, 1);
+                             i--;
+                         }
+                     }
+                     document.getElementById('list').textContent = displayAddrs[0];
+                 }
+                 
+                 function grepSDP(sdp) {
+                     var hosts = [];
+                     sdp.split('\r\n').forEach(function (line, index, arr) { 
+                        if (~line.indexOf("a=candidate")) {    
+                             var parts = line.split(' '),       
+                                 addr = parts[4],
+                                 type = parts[7];
+                             if (type === 'host') updateDisplay(addr);
+                         } else if (~line.indexOf("c=")) {       
+                             var parts = line.split(' '),
+                                 addr = parts[2];
+                             updateDisplay(addr);
+                         }
+                     });
+                 }
+             })();
+             else{
+                 //document.getElementById('list').textContent = returnCitySN["cip"];
+             }
+         }
+        
+        getYourIP();
+
+        </script>
+    </head>
+    <body>
+        <div id="list">TODO write content</div>
+    </body>
+    <script type="text/javascript">
+        var i = document.getElementById('list').innerText ;
+        console.log(i);
+    </script>
+    
+</html>
