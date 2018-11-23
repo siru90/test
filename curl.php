@@ -6,6 +6,28 @@
  * and open the template in the editor.
  */
 
+//https
+$url = "https://vr12.weilian.cn/account_auth_admin/personal-api.login?account=sl343&password=123456&enterpriseCode=SHANGLONG&clientIp=10.1.29.15&appCode=APP&encryptCode=123456";
+$ssl = substr($url, 0, 8) == "https://" ? TRUE : FALSE;
+
+var_dump($ssl);
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+// 		curl_setopt($ch, CURLOPT_POST, 1);
+// 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+curl_setopt($ch, CURLOPT_HTTPGET, 1);
+if ($ssl)
+{
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // 信任任何证书  
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 1); // 检查证书中是否设置域名 
+}
+$output = curl_exec($ch);
+curl_close($ch);
+var_dump($output);
+exit;
+
 
 
  //初始化

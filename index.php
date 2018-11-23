@@ -1,10 +1,4 @@
 <?php
-//phpinfo();die;
- 
-
-
-
-
 
 
 /*
@@ -24,46 +18,25 @@ exit;
 echo json_encode(array("aa","bb"));
 exit;
 */
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-//echo $_SERVER['HTTP_HOST'];
-
-//phpinfo();
-//echo time();
-//exit;
 
 /*
-$tmp = $_GET ? $_GET : $_POST;
-var_dump($tmp);
- */
-
-/*
-date_default_timezone_set('PRC');
-echo date("Y-m-d H:i:s");
-exit;
-
-$str = 1506820437;
-//$str = 1505055657;
-echo date("Y-m-d H:i:s", $str);
-exit;
-*/
-
-
-/*
-$a = 0;
-var_dump(isset($a));
-*/
-
-
-
-
+echo  date("Y-m-d H:i:s","1539174949");
+exit;*/
 
 
 /*银联网关支付*/
+
+/*查询接口*/
+
+
+$app_code = "SUNEEE1ACE11BC";
+$se_payment_code = "aef7f6ab03978a8bd3c3eff82294648b";
+$se_private_key = "301a35a0f0c6ace1cb3ee6eccb5c9608";
+$pay_no = "P181015001712837";
+$created_ts = time();
+$str = md5(md5($app_code. $se_payment_code . $pay_no . $created_ts) . $se_private_key);
+echo "-dd----".$created_ts."---------".$str;
+exit;
 
 /*宁家
 appCode：SUNEEEBA2A6386， 
@@ -83,18 +56,16 @@ $se_private_key = "d4027ba9cfcc9d43c69b0319faa7f22a";
 /*
 {"pay_no":"P171013001508350","created_ts":"1473407173","se_sign":"5b04e927fb3b222988e430f88be82fa8","use_json":"1"}
 */
-/*
 //md5(md5(app_code+ se_payment_code + pay_no + created_ts) + se_private_key)
-$app_code = "SUNEEE8D0A378B";
-$se_payment_code = "9e6cf176811e159a591518d89712fb24";
-//$pay_no = "P171013001508350";
-$pay_no = "P180427001545990";
-$created_ts = "1524818153";
-$se_private_key = "d4027ba9cfcc9d43c69b0319faa7f22a";
+$app_code = "SUNEEE1ACE11BC";
+$se_payment_code = "aef7f6ab03978a8bd3c3eff82294648b";
+$se_private_key = "301a35a0f0c6ace1cb3ee6eccb5c9608";
+$pay_no = "P180814001657480";
+$created_ts = "1534216461";
 $str = md5(md5($app_code. $se_payment_code . $pay_no . $created_ts) . $se_private_key);
 echo "--".$str;
 exit;
-*/
+
 
 //得到：
 // {"code":200,"message":"success","data":{"pay_no":"P171013001508350","payment_type_list":[{"payment_type_id":"7","name":"\u94f6\u8054\u7f51\u5173\u652f\u4ed8","code":"UnionPay"}]}}
@@ -108,29 +79,57 @@ exit;
 */
 
 //md5( md5(app_code+ se_payment_code + bill_id + bill_type_id + amount + created_ts) + se_private_key)
+//1058908708@qq.com 测试应用
 $app_code = "SUNEEE8D0A378B";
 $se_payment_code = "9e6cf176811e159a591518d89712fb24";
-$bill_id = "201805121059";
+$se_private_key = "d4027ba9cfcc9d43c69b0319faa7f22a";
+
+
+//正泰应用
+//$app_code = "SUNEEEF3A3E58E";
+//$se_payment_code = "b943dae2a58bbca99f2ca5ba67952c32";
+//$se_private_key = "5eebd7797113fba7fabc1d6f5a7a8bfc";
+
+//宁家应用
+//$app_code = "SUNEEEBA2A6386";
+//$se_payment_code = "e9a392cc46997c9a6c984cad7a3a6a60";
+//$se_private_key = "a86bac91081b08f7e386c823c42727ad";
+
+
+$app_code = "SUNEEE1ACE11BC";
+$se_payment_code = "aef7f6ab03978a8bd3c3eff82294648b";
+$se_private_key = "301a35a0f0c6ace1cb3ee6eccb5c9608";
+
+
+$bill_id = "201808141147";
 $bill_type_id = "1";
 $amount = "0.01";
-$created_ts = "1525664669";
-$se_private_key = "d4027ba9cfcc9d43c69b0319faa7f22a";
+$created_ts = time();
 $str = md5(md5($app_code. $se_payment_code . $bill_id . $bill_type_id . $amount . $created_ts) . $se_private_key);
-echo "~~~".$str;
+echo "~~~".$created_ts ."~~~".$str;
 exit;
 
 
 //退款第一步
 /*
 //md5( md5(app_code+ se_payment_code + pay_no  + amount + created_ts) + se_private_key) 
+//my
 $app_code = "SUNEEE8D0A378B";
 $se_payment_code = "9e6cf176811e159a591518d89712fb24";
-$pay_no="P180509001556143";
-$amount = "0.01";
-$created_ts = "1525747610";
 $se_private_key = "d4027ba9cfcc9d43c69b0319faa7f22a";
+
+//正泰应用
+$app_code = "SUNEEEF3A3E58E";
+$se_payment_code = "b943dae2a58bbca99f2ca5ba67952c32";
+$se_private_key = "5eebd7797113fba7fabc1d6f5a7a8bfc";
+
+
+$pay_no="P180529001570679";
+$amount = "0.01";
+$created_ts = time();
+
 $str = md5(md5($app_code . $se_payment_code . $pay_no .$amount. $created_ts) . $se_private_key);
-echo "退款第一步~~".$str;
+echo "退款第一步~~". $created_ts ."~~".$str;
 exit;
 */
 
@@ -138,13 +137,20 @@ exit;
 
 $app_code = "SUNEEE8D0A378B";
 $se_payment_code = "9e6cf176811e159a591518d89712fb24";
-$refund_no="R180510000035945";
-$created_ts = "1525747610";
 $se_private_key = "d4027ba9cfcc9d43c69b0319faa7f22a";
+
+//正泰应用
+$app_code = "SUNEEEF3A3E58E";
+$se_payment_code = "b943dae2a58bbca99f2ca5ba67952c32";
+$se_private_key = "5eebd7797113fba7fabc1d6f5a7a8bfc";
+
+$refund_no="R180529000054676";
+$created_ts = "1527585802"; //time();
+
 $str = md5(md5($app_code . $se_payment_code . $refund_no . $created_ts) . $se_private_key);
 //SUNEEE8D0A378B9e6cf176811e159a591518d89712fb24R1801160000015731515575596
 //SUNEEE8D0A378B9e6cf176811e159a591518d89712fb24R1801160000015731515575596
-echo "退款第二步~~".$str;
+echo "退款第二步~~". $created_ts ."~~".$str;
 exit;
 
 
